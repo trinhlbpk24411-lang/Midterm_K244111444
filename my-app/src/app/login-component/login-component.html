@@ -1,0 +1,46 @@
+<div class="container mt-5"
+    style="max-width: 400px; border: 1px solid #ccc; padding: 30px; border-radius: 10px; background: #f9f9f9;">
+    <h3 class="text-center mb-4">Đăng Nhập</h3>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <!-- Tên đăng nhập -->
+        <div class="mb-3">
+            <label class="form-label">Tên đăng nhập:</label>
+            <input type="text" class="form-control" formControlName="username"
+                [class.is-invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+                placeholder="Nhập tên đăng nhập">
+            <div class="invalid-feedback" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                <small *ngIf="loginForm.get('username')?.errors?.['required']">Vui lòng nhập tên đăng nhập.</small>
+                <small *ngIf="loginForm.get('username')?.errors?.['minlength']">Tên đăng nhập phải từ 4 ký tự.</small>
+            </div>
+        </div>
+
+        <!-- Mật khẩu -->
+        <div class="mb-3">
+            <label class="form-label">Mật khẩu:</label>
+            <input type="password" class="form-control" formControlName="password"
+                [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                placeholder="Nhập mật khẩu">
+            <div class="invalid-feedback" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                <small>Vui lòng nhập mật khẩu.</small>
+            </div>
+        </div>
+
+        <!-- Lưu thông tin đăng nhập -->
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" formControlName="rememberMe" id="remember">
+            <label class="form-check-label" for="remember">Lưu thông tin đăng nhập</label>
+        </div>
+
+        <!-- Nút Đăng nhập: Chỉ sáng khi form.valid = true -->
+        <button type="submit" class="btn btn-success w-100" [disabled]="loginForm.invalid">
+            Đăng nhập
+        </button>
+
+        <!-- Debug trạng thái Form Model -->
+        <hr>
+        <div class="mt-3 p-2 bg-light border border-info rounded">
+            <small class="text-primary"><b>Trạng thái Form Model:</b></small>
+            <pre class="mb-0" style="font-size: 11px;">{{ loginForm.value | json }}</pre>
+        </div>
+    </form>
+</div>
